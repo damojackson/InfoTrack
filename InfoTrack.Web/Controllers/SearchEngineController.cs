@@ -45,19 +45,9 @@ namespace InfoTrack.Web.Controllers
         [Route("Search")]
         public async Task<SearchEngineResult> Search(SearchEngineRequest request)
         {
-            // Get the correct search based on input.
-            try
-            {
-                var result = await _searchService.PerformSearch(request);
-                return result;
-            }
-            catch
-            {
-                return new SearchEngineResult()
-                {
-                    Error = "Error: Could not perform the search please check the url and search parameters."
-                };
-            }
+            // Get the correct search based on input. 
+            var result = await _searchService.PerformSearch(request);
+            return result;
         }
 
         #endregion
