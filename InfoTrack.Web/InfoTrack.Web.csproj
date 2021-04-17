@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>6e915323-fbfa-4642-aebf-9bdd6399d20a</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.1.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.1.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InfoTrack.Business\InfoTrack.Business.csproj" />
+    <ProjectReference Include="..\InfoTrack.Core\InfoTrack.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,96 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Infotrack Search Engine Check</h1>
+</div>
+<div class="row">
+    <div class="col-12">
+        <h3>Search</h3>
+        <div id="errorMessage" class="alert alert-danger collapse" role="alert">
+        </div>
+        <form action="api/SearchEngine/Search/" id="searchForm">
+            <div class="form-group">
+                <label for="searchUrl">Search URL</label>
+                <input type="text" class="form-control" name="searchUrl" id="searchUrl" required aria-describedby="searchUrlHelp" placeholder="Enter Search Url">
+                <small id="searchUrlHelp" class="form-text text-muted">Please enter the url of the search engine you would like to check.</small>
+            </div>
+            <div class="form-group">
+                <label for="searchText">Search Text</label>
+                <input type="text" class="form-control" name="searchText" id="searchText" required aria-describedby="searchTextHelp" placeholder="Enter Search Text">
+                <small id="searchTextHelp" class="form-text text-muted">Please enter the search text you want to check.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</div>
+<div id="results" class="row collapse">
+    <div class="col-12">
+        <h3>Results</h3>
+        <div><label>Search Engine:&nbsp;</label><span id="searchEngine"></span></div>
+        <div><label>Records Found:&nbsp;</label><span id="searchCount"></span></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#searchForm").submit(function (event) {
+
+            // This could be moved to a js file so its unobtrusive.
+
+            // Stop form from submitting normally
+            event.preventDefault();
+            var searchEngine = $("#searchEngine");
+            var searchCount = $("#searchCount");
+            var results = $("#results");
+            var error = $("#errorMessage");
+
+            // Get some values from elements on the page:
+            var $form = $(this),
+                searchUrl = $form.find("input[name='searchUrl']").val(),
+                searchText = $form.find("input[name='searchText']").val(),
+                url = $form.attr("action");
+
+            var requestData = { searchTerm: searchText, searchEngineURL: searchUrl };
+            error.collapse('hide');
+            results.collapse('hide');
+
+
+            // Send the data using post.
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(requestData),
+                dataType: "json",
+            }).done(function (data) {
+                if (data.error) {
+                    showError(error, data.error);
+                }
+                else {
+                    searchEngine.text(data.searchEngine);
+                    searchCount.text(data.results);
+                    results.collapse('show');
+                }
+            }).fail(
+                function (jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status == 400) {
+                        //error stuff
+                        showError(error, 'Error: Invalid search parameters.');
+                    }
+                    else {
+                        showError(error, 'Error: Search could not be completed. Please check the search parameters and try again.');
+                    }
+                });
+        });
+
+        function showError(error, errorMessage) {
+            error.text(errorMessage);
+            error.collapse('show');
+        }
+
+    </script>
+ }
