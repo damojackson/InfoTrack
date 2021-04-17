@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace InfoTrack.Core.Interfaces
 {
+    /// <summary>
+    /// Interface for a search engine service, implemented for each search engine.
+    /// </summary>
     public interface ISearchEngineService
     {
         /// <summary>

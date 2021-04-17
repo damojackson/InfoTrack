@@ -2,6 +2,9 @@
 
 namespace InfoTrack.Core.Entities
 {
+    /// <summary>
+    /// The request from the client with data annotations for model validation.
+    /// </summary>
     public class SearchEngineRequest
     {
         [Required]

@@ -1,15 +1,12 @@
 ﻿using InfoTrack.Business.Base;
-using InfoTrack.Core.Entities;
 using InfoTrack.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace InfoTrack.Business.Services
 {
+    /// <summary>
+    /// This search engine is for the bing site, it only needs a few paramters passed into the base for it to to get results.
+    /// This will allow another request to be able to 
+    /// </summary>
     public class BingSearchService : BaseSearchEngineService, ISearchEngineService
     {
         #region Declarations

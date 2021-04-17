@@ -1,16 +1,13 @@
-﻿using InfoTrack.Business.Factory;
-using InfoTrack.Business.Services;
-using InfoTrack.Core.Entities;
+﻿using InfoTrack.Core.Entities;
 using InfoTrack.Core.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace InfoTrack.Web.Controllers
 {
+    /// <summary>
+    /// The API controller 
+    /// </summary>
     [Route("api/SearchEngine")]
     [ApiController]
     public class SearchEngineController : ControllerBase
@@ -39,12 +36,18 @@ namespace InfoTrack.Web.Controllers
         /// <summary>
         /// Perform the search and return the result back to the client.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">The request from the client</param>
         /// <returns></returns>
         [HttpPost]
         [Route("Search")]
         public async Task<SearchEngineResult> Search(SearchEngineRequest request)
         {
+            // check for trailing '/' and remove it if it exists.
+            if (request.SearchEngineURL.EndsWith("/"))
+            {
+                request.SearchEngineURL = request.SearchEngineURL[0..^1];
+            }
+
             // Get the correct search based on input. 
             var result = await _searchService.PerformSearch(request);
             return result;

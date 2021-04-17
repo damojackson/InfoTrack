@@ -1,5 +1,8 @@
 ﻿namespace InfoTrack.Core.Entities
 {
+    /// <summary>
+    /// The search settings that can be set from the app settings and injected in.
+    /// </summary>
     public class SearchSettings
     {
         /// <summary>

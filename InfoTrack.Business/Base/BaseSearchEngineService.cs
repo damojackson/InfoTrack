@@ -3,12 +3,14 @@ using InfoTrack.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace InfoTrack.Business.Base
 {
+    /// <summary>
+    /// This is the base search engine, it contains all of the common code for each of the search engines.
+    /// The searchHTML method is overridable in case a different way of searching for each resul is required.
+    /// </summary>
     public class BaseSearchEngineService : ISearchEngineService
     {
         #region Declarations
@@ -41,6 +43,7 @@ namespace InfoTrack.Business.Base
         /// </summary>
         /// <param name="searchEngineName">The name of the search engine</param>
         /// <param name="pagingTemplate">The template used for requesting each page.</param>
+        /// <param name="searchRegex">The regular expression used to find each of the results.</param>
         public BaseSearchEngineService(string searchEngineName, string pagingTemplate, string searchRegex)
         {
             _searchEngineName = searchEngineName;

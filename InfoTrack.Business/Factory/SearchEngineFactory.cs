@@ -1,13 +1,13 @@
 ﻿using InfoTrack.Business.Services;
 using InfoTrack.Core.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InfoTrack.Business.Factory
 {
+    /// <summary>
+    /// This factory will allow us to easily add search engines as needed.
+    /// It will return the correct class based on what is passed in from the user.
+    /// </summary>
     public class SearchEngineFactory
     {
         #region Declarations

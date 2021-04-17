@@ -3,9 +3,7 @@ using InfoTrack.Core.Entities;
 using InfoTrack.Core.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace InfoTrack.Business.Services
