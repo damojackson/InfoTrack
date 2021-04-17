@@ -106,7 +106,7 @@ namespace InfoTrack.Business.Services
             var content = await GetContent(pageURL);
 
             // Perform the search.
-            return searchEngineService.Search(content, page);
+            return searchEngineService.Search(content);
         }
 
         /// <summary>

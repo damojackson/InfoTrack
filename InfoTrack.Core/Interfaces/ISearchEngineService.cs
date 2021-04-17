@@ -23,7 +23,7 @@ namespace InfoTrack.Core.Interfaces
         /// <param name="SearchTerm">The search term</param>
         /// <param name="content">The contnent to search.</param>
         /// <returns></returns>
-        List<string> Search(string content, int page);
+        List<string> Search(string content);
 
         /// <summary>
         /// Get the search page url.

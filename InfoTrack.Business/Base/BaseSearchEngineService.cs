@@ -84,7 +84,7 @@ namespace InfoTrack.Business.Base
         /// <param name="content"></param>
         /// <param name="page"></param>
         /// <returns></returns>
-        public List<string> Search(string content, int page)
+        public List<string> Search(string content)
         {
             if (string.IsNullOrWhiteSpace(content))
             {
