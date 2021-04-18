@@ -1,7 +1,9 @@
 using InfoTrack.Business.Factory;
 using InfoTrack.Business.Services;
 using InfoTrack.Core.Entities;
+using InfoTrack.Core.Factory;
 using InfoTrack.Core.Interfaces;
+using InfoTrack.Core.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -33,7 +35,7 @@ namespace InfoTrack.Web
             });
 
             // register the fatcory.
-            services.AddScoped<SearchEngineFactory>();
+            services.AddScoped<ISearchEngineFactory, SearchEngineFactory>();
 
             // Add the HttpClient.
             services.AddScoped<HttpClient>();
@@ -45,6 +47,9 @@ namespace InfoTrack.Web
 
             // Add the search service.
             services.AddScoped<ISearchService, SearchService>();
+
+            // Add the search client.
+            services.AddScoped<ISearchClient, SearchClient>();
 
             // add each of the search engine services so they are resolvable suing the factory.
             services.AddScoped<GoogleSearchService>()

@@ -1,4 +1,5 @@
 ﻿using InfoTrack.Business.Services;
+using InfoTrack.Core.Factory;
 using InfoTrack.Core.Interfaces;
 using System;
 
@@ -8,7 +9,7 @@ namespace InfoTrack.Business.Factory
     /// This factory will allow us to easily add search engines as needed.
     /// It will return the correct class based on what is passed in from the user.
     /// </summary>
-    public class SearchEngineFactory
+    public class SearchEngineFactory : ISearchEngineFactory
     {
         #region Declarations
 
@@ -32,7 +33,7 @@ namespace InfoTrack.Business.Factory
         /// </summary>
         /// <param name="userSelection"></param>
         /// <returns></returns>
-        public ISearchEngineService GetSearcService(string url)
+        public ISearchEngineService GetSearchService(string url)
         {
             var urlToCheck = url.ToLower();
             if (urlToCheck.Contains("google"))

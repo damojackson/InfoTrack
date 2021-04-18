@@ -1,10 +1,6 @@
-using InfoTrack.Business.Factory;
 using InfoTrack.Business.Services;
 using InfoTrack.Core.Entities;
-using InfoTrack.Core.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using System.Net.Http;
 
 /// <summary>
 /// Unit tests will go here.
@@ -75,5 +71,7 @@ namespace InfoTrack.Business.Test
 
             Assert.AreEqual("https://infotrack-tests.infotrack.com.au/Google/Page01.html", url);
         }
+
+       
     }
 }

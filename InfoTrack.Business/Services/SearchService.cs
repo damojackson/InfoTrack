@@ -1,6 +1,8 @@
 ﻿using InfoTrack.Business.Factory;
 using InfoTrack.Core.Entities;
+using InfoTrack.Core.Factory;
 using InfoTrack.Core.Interfaces;
+using InfoTrack.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -12,9 +14,9 @@ namespace InfoTrack.Business.Services
     {
         #region Declarations
 
-        readonly SearchEngineFactory _searchEngineFactory;
+        readonly ISearchEngineFactory _searchEngineFactory;
+        readonly ISearchClient _searchClient;
         readonly SearchSettings _searchSettings;
-        readonly HttpClient _httpClient;
 
         #endregion
 
@@ -25,11 +27,11 @@ namespace InfoTrack.Business.Services
         /// </summary>
         /// <param name="searchEngineService">Takes a single search engine service for searching the htnl</param>
         /// <param name="client">The HttpClient</param>
-        public SearchService(SearchEngineFactory searchEngineFactory, HttpClient client, SearchSettings settings)
+        public SearchService(ISearchEngineFactory searchEngineFactory, ISearchClient searchClient, SearchSettings settings)
         {
             _searchEngineFactory = searchEngineFactory;
             _searchSettings = settings;
-            _httpClient = client;
+            _searchClient = searchClient;
         }
 
         #endregion
@@ -49,7 +51,7 @@ namespace InfoTrack.Business.Services
             }
 
             // get the correct service to make the call.
-            var searchEngineService = _searchEngineFactory.GetSearcService(request.SearchEngineURL);
+            var searchEngineService = _searchEngineFactory.GetSearchService(request.SearchEngineURL);
 
             // find each of the search rows so we can check each one.
             var searchRows = await FindSearchResults(request, searchEngineService);
@@ -73,22 +75,7 @@ namespace InfoTrack.Business.Services
 
         #region Private Methods
 
-        /// <summary>
-        /// Fetch the url
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        private async Task<string> GetContent(string url)
-        {
-            if (string.IsNullOrWhiteSpace(url))
-            {
-                throw new ArgumentException("url cannot be empty");
-            }
 
-            // Call the url to get the contnent.
-            var content = await _httpClient.GetStringAsync(url);
-            return content;
-        }
 
         /// <summary>
         /// Search a page for content.
@@ -103,7 +90,7 @@ namespace InfoTrack.Business.Services
             var pageURL = searchEngineService.GetSearchPageURL(request, page);
 
             // request the contnent from the url.
-            var content = await GetContent(pageURL);
+            var content = await _searchClient.GetContent(pageURL);
 
             // Perform the search.
             return searchEngineService.Search(content);
